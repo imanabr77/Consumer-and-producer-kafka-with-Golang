@@ -4,11 +4,11 @@
 
 install kafka in local
   install kakfa : 
-  $ tar -xzf kafka_version.tgz
-  $ cd kafka_version
+  /$ tar -xzf kafka_version.tgz
+  /$ cd kafka_version
 
-  $ bin/zookeeper-server-start.sh config/zookeeper.properties
-  $ bin/kafka-server-start.sh config/server.properties
+  /$ bin/zookeeper-server-start.sh config/zookeeper.properties
+  /$ bin/kafka-server-start.sh config/server.properties
   
 bin/kafka-server-start.sh --bootstrap-server=localhost:9092 --create --topic coordinates --replication-factor 1 --partitions 1
 
