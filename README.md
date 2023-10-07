@@ -9,7 +9,7 @@
   * $ bin/zookeeper-server-start.sh config/zookeeper.properties
   * $ bin/kafka-server-start.sh config/server.properties
  
-###for Create kafka topic :   
+### for Create kafka topic :   
 * bin/kafka-server-start.sh --bootstrap-server=localhost:9092 --create --topic coordinates --replication-factor 1 --partitions 1
 
 
