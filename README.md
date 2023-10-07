@@ -2,10 +2,10 @@
 
 
 
-install kafka in local
-  install kakfa : 
-  /$ tar -xzf kafka_version.tgz
-  /$ cd kafka_version
+-install kafka in local
+  -install kakfa : 
+  -$ tar -xzf kafka_version.tgz
+  -$ cd kafka_version
 
   /$ bin/zookeeper-server-start.sh config/zookeeper.properties
   /$ bin/kafka-server-start.sh config/server.properties
