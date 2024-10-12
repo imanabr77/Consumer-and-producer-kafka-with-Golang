@@ -1,65 +1,62 @@
 package main
 
 import (
+	"fmt"
 
-  "fmt"
-
-  "github.com/confluentinc/confluent-kafka-go/kafka"
-
+	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
 func main() {
 
-  // producer config
+	// producer config
 
-  config := &kafka.ConfigMap{
+	config := &kafka.ConfigMap{
 
-    "bootstrap.servers": "localhost:9092", // kafka broker addr
+		"bootstrap.servers": "localhost:9092", // kafka broker addr
 
-  }
+	}
 
-  topic := "coordinates" // target topic name
+	topic := "coordinates" // target topic name
 
-  // Create Kafka producer
+	// Create Kafka producer
 
-  producer, err := kafka.NewProducer(config)
+	producer, err := kafka.NewProducer(config)
 
-  if err != nil {
+	if err != nil {
 
-    panic(err)
+		panic(err)
 
-  }
+	}
 
-  // write 10 messages to the "coordinates" topic
+	// write 10 messages to the "coordinates" topic
 
-  for i := 0; i < 10; i++ {
+	for i := 0; i < 10; i++ {
 
-    value := fmt.Sprintf("message-%d", i)
+		value := fmt.Sprintf("message-%d", i)
 
-    err := producer.Produce(&kafka.Message{
+		err := producer.Produce(&kafka.Message{
 
-      TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
+			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
 
-      Value: []byte(value),
+			Value: []byte(value),
+		}, nil)
 
-    }, nil)
+		if err != nil {
 
-    if err != nil {
+			fmt.Printf("Failed to produce message %d: %v\n", i, err)
 
-        fmt.Printf("Failed to produce message %d: %v\n", i, err)
+		} else {
 
-    } else {
+			fmt.Printf("Produced message %d: %s\n", i, value)
 
-        fmt.Printf("Produced message %d: %s\n", i, value)
+		}
 
-    }
+	}
 
-  }
+	// Close Kafka producer
 
-  // Close Kafka producer
+	producer.Flush(15 * 1000)
 
-  producer.Flush(15 * 1000)
-
-  producer.Close()
+	producer.Close()
 
 }
